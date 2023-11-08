@@ -53,6 +53,10 @@ app.get('/', (req, res) => {
 
  });
 
+export default function desafio(req, res) {
+ res.statusCode = 200;
+ res.json({ message: 'It works' });
+}
 
 app.listen(3001, () => {
     console.log("Aplicação rodando na porta 3001");
