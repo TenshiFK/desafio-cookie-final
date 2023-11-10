@@ -34,6 +34,7 @@ app.get('/', (req, res) => {
             <body>
                 <header>
                     <h1>Desafio Cookies</h1>
+                    <p>Para ver ser id, atualize a página</p>
                 </header>
                 <main>
                     <h1><span>Seu Cookie</span></h1>
@@ -53,13 +54,9 @@ app.get('/', (req, res) => {
 
  });
 
-export default function desafio(req, res) {
- res.statusCode = 200;
- res.json({ message: 'It works' });
-}
-
-app.listen(3001, () => {
-    console.log("Aplicação rodando na porta 3001");
-})
+ const PORT = process.env.PORT || 3001; // use process.env.PORT
+ app.listen(PORT, () => {
+   console.log(`server started on port ${PORT}`);
+ });
 
 
