@@ -1,5 +1,4 @@
 const express = require('express');
-
 const session = require('express-session');
 const cookieParser = require("cookie-parser");
 
@@ -21,42 +20,21 @@ app.get('/', (req, res) => {
     res.cookie('name', 'Desafio', {
         maxAge: 5000,
         expires: new Date('08 11 2023'),
-        secure: true,
+        // secure: true,
         httpOnly:true,
         sameSite: 'lax',
         signed: true,
-    }).send(`
-        <html>
-            <head>
-                <link rel="stylesheet" type="text/css" href="/style.css">
-            </head>
+    });
+    console.log('Cookies: ', req.cookies);
+    console.log('Signed Cookies: ', req.signedCookies);
 
-            <body>
-                <header>
-                    <h1>Desafio Cookies</h1>
-                    <p>Para ver ser id, atualize a página</p>
-                </header>
-                <main>
-                    <h1><span>Seu Cookie</span></h1>
-                    <p>${JSON.stringify(req.signedCookies)}</p>
-                    <img src="https://pngimg.com/d/cookie_PNG13645.png"></img>
-                </main>
-                <footer></footer>
-            </body>
-        </html>
+    const data = {
+        id_cookie: req.signedCookies, 
+    };
+    res.json(data);
+});
 
-        
-    `);
-    console.log('Cookies: ', req.cookies)
-
-    // Cookies that have been signed
-    console.log('Signed Cookies: ', req.signedCookies)
-
- });
-
- const PORT = process.env.PORT || 3001; // use process.env.PORT
- app.listen(PORT, () => {
+const PORT = process.env.PORT || 3001; // use process.env.PORT
+app.listen(PORT, () => {
    console.log(`server started on port ${PORT}`);
- });
-
-
+});
