@@ -4,8 +4,6 @@ const cookieParser = require("cookie-parser");
 
 const app = express();
 
-app.use(express.static('public'));
-
 app.use(cookieParser('minhachave'));
 
 app.use(
@@ -16,10 +14,12 @@ app.use(
     })
 );
 
-app.get('/', (req, res) => {
+app.use(express.static('public'));
+
+app.get('/cookie', (req, res) => {
     res.cookie('name', 'Desafio', {
         maxAge: 5000,
-        expires: new Date('08 11 2023'),
+        expires: new Date('12 11 2030'),
         // secure: true,
         httpOnly:true,
         sameSite: 'lax',
@@ -29,12 +29,13 @@ app.get('/', (req, res) => {
     console.log('Signed Cookies: ', req.signedCookies);
 
     const data = {
-        id_cookie: req.signedCookies, 
+        id_cookie: JSON.stringify(req.signedCookies), 
     };
     res.json(data);
 });
 
 const PORT = process.env.PORT || 3001; // use process.env.PORT
+
 app.listen(PORT, () => {
    console.log(`server started on port ${PORT}`);
 });
